@@ -1,0 +1,35 @@
+node{
+    
+    def mavenHome = tool name: "maven3.8.2"
+    
+    stage('CheckoutCode'){
+        git branch: 'market', credentialsId: '9b6805e6-015b-41f0-abeb-f3efc3815153', url: 'https://github.com/shriharidornal/maven-web-application.git'
+    }
+    
+    stage('Bulid'){
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+  
+  /*
+    
+    stage('ExecuteSonarQubeReport'){
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    
+    stage('UploadArtifactIntoNexus'){
+        sh "${mavenHome}/bin/mvn deploy"
+    }
+    
+    stage('DeployAppIntoTomcatServer'){
+        sshagent(['6fddd322-ae11-4a9f-983a-21592dc502e0']) {
+          sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@65.1.106.180:/opt/apache-tomcat-9.0.62/webapps/"
+     }
+    }
+    
+    stage('SendEmailNotification'){
+        emailext body: '''Build over...''', 
+        subject: 'Build project', to: 'akshaydornal97@gmail.com,shriharidornal@gmail.com'
+    }
+  
+  */
+}
